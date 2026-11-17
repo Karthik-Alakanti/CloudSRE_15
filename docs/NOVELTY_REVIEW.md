@@ -1,0 +1,59 @@
+# Novelty review — M1
+
+Status: **NOT APPROVED.**
+No "first", "novel", "privacy-preserving", or "state-of-the-art" claim is authorized until this table is supported by full-text evidence and a documented search.
+
+## Working research question (original proposal)
+
+Can class-specific decision thresholds estimated from aggregated client-local score summaries improve minority-class detection while keeping the benign false-positive rate below a predefined operational budget?
+
+## Candidate claim (original proposal)
+
+A federated post-training calibration method for supervised multiclass network IDS, where clients contribute class-conditional prediction-score histograms and a server estimates class-specific thresholds under an explicit benign false-positive constraint.
+
+## Evidence gathered (2023–2026)
+
+| Work | Task | FL setting | Summary sent | Threshold type | Objective / constraint | Dataset | Difference / overlap with proposed |
+|---|---|---|---|---|---|---|---|
+| Laridi, Palmer & Tam (2024), "Enhanced federated anomaly detection through autoencoders using summary statistics-based thresholding", Scientific Reports 14:26704. DOI 10.1038/s41598-024-76961-2. arXiv:2410.09284. PMC: PMC11535521. | Unsupervised anomaly detection (autoencoder reconstruction error), binary normal vs anomaly | Federated autoencoders, FedAvg, Non-IID | Client-local summary statistics (mean, variance, skewness, kurtosis) of reconstruction errors | Single **global** threshold θ_global | Maximize average F1 over an overlap region of normal/anomalous error distributions | Credit Card Fraud, Shuttle, Covertype | **Substantial core overlap**: federated thresholding from aggregated client-local score statistics under Non-IID. **Differs**: anomaly vs supervised multiclass; moment statistics vs score histograms; single global threshold vs per-class thresholds; no explicit benign-FPR constraint; autoencoder vs supervised classifier; non-UNSW-NB15 datasets. |
+| Maddock, Cormode & Maple (2025), "Private Federated Multiclass Post-hoc Calibration", arXiv:2510.01987. Submitted 2 Oct 2025. | Multiclass post-hoc model calibration | Federated, user-level DP and non-DP | Client-local score histograms (binning) / temperature-scaling parameters | Per-class score mapping (binning) / temperature (scaling) | Minimize classwise expected calibration error (cwECE) under heterogeneity | Seven benchmark datasets (image/tabular, not UNSW-NB15) | **Direct overlap**: federated post-hoc calibration with client histograms. **Differs**: not IDS-specific; weighting by example count only (not class-absence aware); no benign-FP constraint; not UNSW-NB15. |
+| Dataset-centric evaluation of federated IDS models in IoT networks, Scientific Reports (2026-01-16), s41598-025-32567-w. | Supervised multiclass IDS | 10 clients, FedAvg / FedProx / FedNova | Not score histograms (model weights) | Mentions calibrated post-hoc thresholds as a practical mitigation | Macro-F1; per-class confusion spillover | Edge-IIoTset, CIC-IoT2023, TII-SSRC-23 | Overlap: post-hoc threshold calibration discussed for FL-IDS. Differs: thresholds not the proposed contribution; no class-conditional score histogram aggregation or benign-FPR budget; non-UNSW-NB15 datasets. |
+| XAI-FedIDS / FedXAIIDS (2025–2026), e.g. MDPI Electronics 14(6):234 (FedXAIIDS, CICIoT2023), arXiv:2605.19448 (XAI FL-IDS, Edge-IIoTset, 10 clients) | IDS + explainability (SHAP/LIME) | Federated, client-local models | Explanation vectors / trust scores for aggregation weights | Not a threshold claim (explainability / aggregation weighting) | Accuracy, interpretability | CICIoT2023, Edge-IIoTset | Overlap: client-local summaries leave the client. Differs: objective is explainability/aggregation trust, not class-specific decision thresholds or benign-FPR calibration. |
+| Federated Learning for IDS Under Class Imbalance (MDPI Applied Sciences 2026, 2076-3417/16/2/801), multi-domain ablation with per-client SMOTE | Supervised multiclass IDS | 5–10 clients, FL | None (model weights) | Per-class thresholds via **centralized validation grid search** | Macro-F1 under benign-FP cap (≤500 FP per 10K benign), benign gate | CICIDS-2017, InSDN-OVS, 5G-NIDD | Overlap: per-class thresholds + benign-FP constraint. Differs: centralized (not federated aggregated), grid search on validation (not score histograms from clients), not UNSW-NB15. |
+| Scenario-Aware Federated IDS (MDPI Electronics 2026, 2079-9292/15/14/3090) | Binary/group-split IDS | Federated | None | Threshold selected on independent calibration set | Calibration F1; threshold varies across model/seed/partition (not universal) | V2X-inspired (CICEVSE2024, CICIoV2024) | Overlap: calibration-set thresholding; threshold not universal. Differs: binary, single global threshold, no federated score summaries, no benign-FPR budget, not UNSW-NB15. |
+| FL-IIDS (Jin et al., 2024, Information and Software Technology) | Incremental multiclass IDS, catastrophic forgetting | Federated | None (model weights + relay-client reconstruction) | Not applicable (loss-based) | Class-gradient balance loss, label-smoothing loss | UNSW-NB15, CICIDS2018 | Overlap: uses UNSW-NB15 and addresses Non-IID/minority-class bias. Differs: incremental learning & loss design, not post-training threshold calibration. |
+| FedMADE (Sun et al., 2024), arXiv:2408.07152, ISC 2024 | Minority attack detection in FL-IDS | Federated, dynamic aggregation | None (model weights + client performance metrics) | Not applicable (aggregation weighting) | Minority attack classification accuracy | CICIoT2023 | Overlap: addresses minority-class under Non-IID. Differs: dynamic aggregation weights, not calibration/thresholding; not UNSW-NB15. |
+| PROTEAN (Chennoufi et al., 2025), arXiv:2507.05524, ESORICS 2025 | Multiclass IDS under Non-IID | Federated, prototype sharing | Class prototypes (mean feature vectors per class) | Not applicable (prototype-based alignment) | Detection accuracy under heterogeneous attack distributions | X-IIoTID, 5G-NIDD | Overlap: prototype exchange for classes absent from some clients. Differs: prototypes for feature alignment, not decision thresholds; not UNSW-NB15; no benign-FP constraint. |
+| Federated dual correction IDS (Jin et al., 2025), Computer Networks 259:111116 | Multiclass IDS under heterogeneity | Federated | None (model weights + GAN boundary samples) | Not applicable (loss/GAN-based) | Robustness to heterogeneous data, rare traffic | UNSW-NB15, CICIDS2018 | Overlap: uses UNSW-NB15, addresses rare traffic under Non-IID. Differs: GAN-based augmentation (excluded by project constraints); not threshold calibration. |
+| FORT-IDS (2025), Scientific Reports s41598-025-31025-x | Multiclass IDS, cross-domain robustness | Federated, K=20 clients, Dirichlet α=0.3 | Model updates + attention weights | Not applicable | Accuracy, F1 under cross-domain transfer | UNSW-NB15 (93K samples, 45 features), DDoS Botnet IoT | Overlap: uses UNSW-NB15 with Dirichlet α=0.3. Differs: multi-phase framework with SHAP/LIME/adversarial augmentation; not threshold calibration; complexity exceeds project scope. |
+| FD-IDS (2025), Sensors s25144309 | Multiclass IDS under Non-IID IoT | Federated, knowledge distillation + proximal term | None (model weights + distillation loss) | Not applicable | Detection accuracy under Non-IID | Edge-IIoT, N-BaIoT | Overlap: Non-IID FL-IDS. Differs: knowledge distillation, not calibration/thresholding; not UNSW-NB15. |
+| Proposed (original) | Supervised multiclass IDS (`attack_cat`) | Non-IID simulation, 10 clients, Dirichlet α=0.3 | Class-conditional score histograms (true-class vs other-class records), no raw records | **Per-class** thresholds | Macro-F1 / minority recall under explicit benign-FPR budget | UNSW-NB15 official train/test | Candidate combination only; not verified as first. Does not address class absence under Dirichlet α=0.3. |
+
+## Established findings
+
+- Federated thresholding from aggregated client-local score statistics is **already published** (Laridi et al., 2024, Scientific Reports, open access, full text verified via PMC and arXiv). The core idea—clients send score/statistic summaries, server derives a threshold under Non-IID—is not new.
+- Federated multiclass post-hoc calibration with client histograms is **already published** (Maddock et al., 2025, arXiv:2510.01987). Federated binning and temperature scaling under non-IID are demonstrated; weighting by example count per class is used for stability.
+- Per-class threshold optimization with a benign false-positive constraint appears in centralized FL-IDS ablation work (MDPI Applied Sciences 2026) and calibration-set threshold selection appears in federated IDS work (Electronics 2026), but neither combines federated aggregated score histograms with per-class thresholds on UNSW-NB15.
+- Prototype exchange for classes absent from some clients exists (PROTEAN, 2025), but for feature alignment, not decision thresholds, and not on UNSW-NB15.
+- Histogram/summary exchanges are **not** differentially private and can leak information (especially small counts); the project correctly avoids claiming formal privacy.
+- Thresholds are model-, seed-, split-, and dataset-dependent; no universal operating point is supported (Electronics 2026; MDPI Applied Sciences 2026 limitations).
+- **No existing work** combines class-absence-aware weighting in federated calibration with a benign-FP constraint on UNSW-NB15 under Dirichlet α=0.3 partitioning.
+
+## Unresolved questions / overlap
+
+1. **Core overlap**: The 2024 Laridi et al. paper already aggregates client-local score statistics for federated thresholding under Non-IID. Claiming "first federated threshold calibration for IDS" would be false. Maddock et al. (2025) already does federated multiclass post-hoc calibration with client histograms.
+2. **Per-class thresholds + benign-FP budget** have precedent in centralized FL-IDS (MDPI Applied Sciences 2026); federated aggregation of histograms for this purpose is covered by Maddock et al. (2025) but without class-absence awareness or benign-FP constraint.
+3. **Privacy**: exchanging class-conditional histograms can leak class presence/counts per client; this is not differential privacy and must not be described as a formal privacy guarantee (consistent with AGENTS.md constraint 6).
+4. **Class absence under Dirichlet α=0.3** (rare classes missing from clients) makes small-histogram threshold estimation statistically unstable. None of the surveyed papers explicitly address this in the context of federated calibration for IDS.
+5. The original proposal does not address class absence, which is the structural problem created by the chosen partitioning (Dirichlet α=0.3, 10 clients, 10 classes on UNSW-NB15 where Worms is very rare).
+
+## Decision on original proposal
+
+Status: **NOT APPROVED.**
+The proposed contribution overlaps substantially with Laridi et al. (2024) on the core federated summary-statistics thresholding mechanism, and with Maddock et al. (2025) on federated multiclass post-hoc calibration. The original proposal also does not address class absence under Dirichlet α=0.3. Do not write "first", "novel", "privacy-preserving", or "state-of-the-art" as established facts.
+
+## Candidate direction: Class-Absence-Aware Federated Calibration (CAA-FedCal)
+
+Documented in `docs/CANDIDATE_DIRECTIONS.md`. This direction retains the federated calibration core but adds class-absence-aware weighting (only clients that have a class contribute to that class's threshold) and an explicit benign-FP constraint on UNSW-NB15 under Dirichlet α=0.3. The specific combination—class-absence-aware federated calibration with benign-FP constraint on UNSW-NB15—is **not covered by existing work** and is the recommended path forward.
+
+M1 is not complete until a direction is selected and the novelty gate is resolved for that direction. M2 data engineering can proceed independently.

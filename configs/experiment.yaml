@@ -1,0 +1,42 @@
+project:
+  name: fed-ids-calibration
+  stage: M1_M2_ONLY
+  seed: 42
+
+dataset:
+  name: NF-UNSW-NB15-v2
+  source: University of Queensland (UQRDM), M. Sarhan
+  source_url: https://espace.library.uq.edu.au/view/UQ:ffbb0c1
+  raw_dir: data/raw/unsw-nb15
+  data_file: fe6cb615d161452c_MOHANAD_A4706/data/NF-UNSW-NB15-v2.csv
+  features_file: fe6cb615d161452c_MOHANAD_A4706/data/NetFlow_v2_Features.csv
+  target_column: Attack
+  binary_label_column: Label
+  identifier_columns: []
+  excluded_feature_columns: [IPV4_SRC_ADDR, IPV4_DST_ADDR]
+  expected_rows: 2390275
+  test_fraction: 0.20
+  split_seed: 42
+  retain_all_classes: true
+
+federation:
+  num_clients: 10
+  dirichlet_alpha: 0.3
+  seed: 42
+
+client_split:
+  train_fraction: 0.70
+  validation_fraction: 0.15
+  calibration_fraction: 0.15
+  seed: 42
+
+preprocessing:
+  numeric_scaling: standard
+  categorical_encoding: one_hot
+  handle_unknown_categories: ignore
+  imputation: median_numeric_most_frequent_categorical
+
+outputs:
+  processed_dir: data/processed
+  partitions_dir: data/partitions
+  results_dir: results
