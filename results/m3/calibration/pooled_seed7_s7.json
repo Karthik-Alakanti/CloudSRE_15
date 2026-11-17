@@ -1,0 +1,136 @@
+{
+  "num_classes": 10,
+  "num_bins": 20,
+  "min_clients": 3,
+  "min_calib_records": 10,
+  "alpha_bpr": 0.05,
+  "benign_class_id": 2,
+  "weighting": "uniform",
+  "is_fitted": true,
+  "aggregated": {
+    "0": {
+      "eligible": false,
+      "reason": "only 1 clients have class 0 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "1": {
+      "eligible": false,
+      "reason": "only 1 clients have class 1 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "3": {
+      "eligible": false,
+      "reason": "only 1 clients have class 3 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "4": {
+      "eligible": false,
+      "reason": "only 1 clients have class 4 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "5": {
+      "eligible": false,
+      "reason": "only 1 clients have class 5 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "6": {
+      "eligible": false,
+      "reason": "only 1 clients have class 6 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "7": {
+      "eligible": false,
+      "reason": "only 1 clients have class 7 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "8": {
+      "eligible": false,
+      "reason": "only 1 clients have class 8 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    },
+    "9": {
+      "eligible": false,
+      "reason": "only 1 clients have class 9 in calibration (need 3)",
+      "eligible_clients": [
+        0
+      ]
+    }
+  },
+  "thresholds": {
+    "0": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 0 in calibration (need 3)"
+    },
+    "1": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 1 in calibration (need 3)"
+    },
+    "3": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 3 in calibration (need 3)"
+    },
+    "4": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 4 in calibration (need 3)"
+    },
+    "5": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 5 in calibration (need 3)"
+    },
+    "6": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 6 in calibration (need 3)"
+    },
+    "7": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 7 in calibration (need 3)"
+    },
+    "8": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 8 in calibration (need 3)"
+    },
+    "9": {
+      "threshold": null,
+      "eligible": false,
+      "reason": "only 1 clients have class 9 in calibration (need 3)"
+    }
+  },
+  "client_presence": {
+    "0": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  }
+}
